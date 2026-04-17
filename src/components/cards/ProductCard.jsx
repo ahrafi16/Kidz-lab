@@ -25,7 +25,7 @@ const ProductCard = ({ product, loading }) => {
         discount > 0 ? price - (price * discount) / 100 : price;
 
     return (
-        <div className="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden">
+        <div className="card bg-base-100 shadow  transition-all duration-300 rounded-xl overflow-hidden">
 
             {/* IMAGE */}
             <figure className="relative p-3">
@@ -89,14 +89,14 @@ const ProductCard = ({ product, loading }) => {
                 {/* BUTTONS */}
                 <div className="flex flex-col gap-2 pt-2">
 
-                    <button className="btn btn-primary btn-sm w-full flex items-center gap-2">
+                    <button className="btn btn-primary w-full flex items-center gap-2">
                         <FaShoppingCart />
                         Add to Cart
                     </button>
 
                     <Link
                         href={`/products/${_id}`}
-                        className="btn btn-outline btn-sm w-full"
+                        className="btn btn-outline border-gray-300 w-full"
                     >
                         View Details
                     </Link>
