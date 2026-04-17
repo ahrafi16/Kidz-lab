@@ -4,9 +4,9 @@ import Image from "next/image";
 
 const Banner = () => {
     return (
-        <div className="flex justify-between items-center">
-            <div className="flex-1 space-y-5">
-                <h2 className={`${fontBangla.className} text-6xl font-bold leading-20`}>আপনার শিশুকে দিন ভালোবাসার একটি <span class="text-primary">মিষ্টি চমক</span> ✨</h2>
+        <div className="flex flex-col-reverse md:flex-row justify-between items-center">
+            <div className="flex-1 md:space-y-5">
+                <h2 className={`${fontBangla.className} text-2xl md:text-6xl font-bold md:leading-20`}>আপনার শিশুকে দিন ভালোবাসার একটি <span className="text-primary">মিষ্টি চমক</span> ✨</h2>
                 <p>Buy every toy with up to 15% Discount</p>
                 <button className="btn btn-primary btn-outline">Explore Products</button>
             </div>
