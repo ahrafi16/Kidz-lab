@@ -1,11 +1,39 @@
 "use client";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = await signIn("credentials", {
+            email: form.email,
+            password: form.password,
+            redirect: false
+        });
+
+        if (result?.ok) {
+            alert("Login successful");
+            router.push("/");
+        } else {
+            alert("Invalid email or password");
+        }
+    };
+
     return (
-        <form onSubmit={""} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
             <div>
                 <label className="label">
@@ -14,6 +42,8 @@ const LoginForm = () => {
                 <input
                     type="email"
                     name="email"
+                    value={form.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
                     className="input input-bordered w-full"
                     required
@@ -30,6 +60,8 @@ const LoginForm = () => {
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
+                        value={form.password}
+                        onChange={handleChange}
                         placeholder="Enter your password"
                         className="input input-bordered w-full pr-10"
                         required
