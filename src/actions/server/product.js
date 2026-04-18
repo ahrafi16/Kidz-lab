@@ -11,6 +11,8 @@ export const getProducts = async () => {
         _id: p._id.toString(), // 🔥 THIS IS REQUIRED
     }));
 };
+
+
 export const getSingleProduct = async (id) => {
     if (!id || typeof id !== "string") {
         return {};

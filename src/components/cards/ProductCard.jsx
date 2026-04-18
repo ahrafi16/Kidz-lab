@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaStar, FaShoppingCart } from "react-icons/fa";
 import { ProductCardSkeleton } from "../skeleton/ProductCardSkeleton";
+import CartButton from "../buttons/CartButton";
 
 const ProductCard = ({ product, loading }) => {
     if (loading) return <ProductCardSkeleton />;
@@ -87,12 +88,9 @@ const ProductCard = ({ product, loading }) => {
                 </div>
 
                 {/* BUTTONS */}
-                <div className="flex flex-col gap-2 pt-2">
+                <div className="flex w-full flex-col gap-2 pt-2">
 
-                    <button className="btn btn-primary w-full flex items-center gap-2">
-                        <FaShoppingCart />
-                        Add to Cart
-                    </button>
+                    <CartButton className="w-full" product={product}></CartButton>
 
                     <Link
                         href={`/products/${_id}`}

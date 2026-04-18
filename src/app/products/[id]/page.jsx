@@ -1,4 +1,5 @@
 import { getSingleProduct } from "@/actions/server/product";
+import CartButton from "@/components/buttons/CartButton";
 import Image from "next/image";
 import { FaCartPlus, FaStar } from "react-icons/fa";
 
@@ -70,10 +71,7 @@ export default async function ProductDetails({ params }) {
                     )}
                 </div>
 
-                <button className="btn btn-primary btn-wide flex items-center gap-2">
-                    <FaCartPlus />
-                    Add to Cart
-                </button>
+                <CartButton product={product}></CartButton>
 
                 <div className="mt-8 space-y-4 text-gray-700 leading-relaxed">
                     {description?.split("\n\n").map((para, idx) => (
