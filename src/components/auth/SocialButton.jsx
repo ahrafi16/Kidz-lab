@@ -6,17 +6,11 @@ import { FaGoogle } from "react-icons/fa";
 
 const SocialButton = () => {
     const params = useSearchParams();
-    const handleSignIn = async () => {
-        const result = await signIn("google", {
-            redirect: "false",
+    const handleSignIn = () => {
+        signIn("google", {
             callbackUrl: params.get("callbackUrl") || "/"
         });
-        if (result.ok) {
-            alert("Success");
-        } else {
-            alert("Error");
-        }
-    }
+    };
     return (
         <button
             onClick={handleSignIn}

@@ -8,7 +8,7 @@ export const getProducts = async () => {
 
     return products.map((p) => ({
         ...p,
-        _id: p._id.toString(), // 🔥 THIS IS REQUIRED
+        _id: p._id.toString(), 
     }));
 };
 
