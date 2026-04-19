@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
+    const params = useSearchParams();
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [form, setForm] = useState({
@@ -21,12 +22,12 @@ const LoginForm = () => {
         const result = await signIn("credentials", {
             email: form.email,
             password: form.password,
-            redirect: false
+            // redirect: false,
+            callbackUrl: params.get("callbackUrl") || "/"
         });
 
         if (result?.ok) {
             alert("Login successful");
-            router.push("/");
         } else {
             alert("Invalid email or password");
         }

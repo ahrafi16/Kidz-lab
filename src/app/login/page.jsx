@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import LoginForm from "@/components/auth/LoginForm";
 import SocialButton from "@/components/auth/SocialButton";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
-   
+    const params = useSearchParams();
+    const callback = params.get("callbackUrl") || "/";
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-base-100 px-4">
@@ -27,7 +27,7 @@ export default function LoginPage() {
                 {/* Register Link */}
                 <p className="text-center mt-4 text-sm">
                     Don’t have an account?{" "}
-                    <Link href="/register" className="text-primary font-semibold">
+                    <Link href={`/register?callbackUrl=${callback}`} className="text-primary font-semibold">
                         Register
                     </Link>
                 </p>
