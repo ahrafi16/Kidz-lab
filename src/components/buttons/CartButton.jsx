@@ -32,7 +32,7 @@ const CartButton = ({ product }) => {
     return (
         <div className="w-full">
             <button
-                disabled={session.status == "loading" || isLoading}
+                disabled={status == "loading" || isLoading}
                 onClick={addToCart}
                 className="btn btn-primary flex items-center w-full gap-2"
             >

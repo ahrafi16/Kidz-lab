@@ -4,14 +4,14 @@ import { dbConnect } from "@/lib/dbConnect"
 import { ObjectId } from "mongodb";
 
 export const getProducts = async () => {
-    const products = await dbConnect("products").find().toArray();
+    const collection = await dbConnect("products"); // 👈
+    const products = await collection.find().toArray();
 
     return products.map((p) => ({
         ...p,
-        _id: p._id.toString(), 
+        _id: p._id.toString(),
     }));
 };
-
 
 export const getSingleProduct = async (id) => {
     if (!id || typeof id !== "string") {
@@ -19,7 +19,8 @@ export const getSingleProduct = async (id) => {
     }
 
     try {
-        const product = await dbConnect("products").findOne({
+        const collection = await dbConnect("products"); // 👈
+        const product = await collection.findOne({
             _id: new ObjectId(id),
         });
 

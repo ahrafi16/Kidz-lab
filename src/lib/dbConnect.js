@@ -18,12 +18,11 @@ const client = new MongoClient(uri, {
 
 let isConnected = false;
 
-export const dbConnect = (cname) => {
+export const dbConnect = async (cname) => {
     if (!isConnected) {
-        client.connect(); 
+        await client.connect();
         isConnected = true;
     }
-
     return client.db(dbname).collection(cname);
 };
 
