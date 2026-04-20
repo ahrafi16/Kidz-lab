@@ -90,7 +90,7 @@ const ProductCard = ({ product, loading }) => {
                 {/* BUTTONS */}
                 <div className="flex w-full flex-col gap-2 pt-2">
 
-                    <CartButton className="w-full" product={product}></CartButton>
+                    <CartButton className="w-full" product={{ ...product, _id: _id.toString() }}></CartButton>
 
                     <Link
                         href={`/products/${_id}`}

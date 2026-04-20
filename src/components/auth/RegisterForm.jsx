@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
     const router = useRouter();
@@ -30,10 +31,18 @@ const RegisterForm = () => {
             const result = await signIn("credentials", {
                 email: form.email,
                 password: form.password,
+                redirect: false,
                 callbackUrl: callbackUrl
             });
             if (result.ok) {
-                alert("Successfull");
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registration Successfull",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                router.push(callbackUrl);
             }
         }
         setForm({ name: "", email: "", password: "" });

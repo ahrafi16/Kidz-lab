@@ -3,10 +3,12 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
     const params = useSearchParams();
     const router = useRouter();
+    const callback = params.get("callbackUrl") || "/";
     const [showPassword, setShowPassword] = useState(false);
     const [form, setForm] = useState({
         email: "",
@@ -22,14 +24,25 @@ const LoginForm = () => {
         const result = await signIn("credentials", {
             email: form.email,
             password: form.password,
-            // redirect: false,
+            redirect: false,
             callbackUrl: params.get("callbackUrl") || "/"
         });
 
         if (result?.ok) {
-            alert("Login successful");
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Login Successfull",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            router.push(callback);
         } else {
-            alert("Invalid email or password");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Email or Password Invalid!"
+            });
         }
     };
 

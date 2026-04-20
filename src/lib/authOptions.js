@@ -59,15 +59,32 @@ export const authOptions = {
         console.error("SIGNIN ERROR:", error);
         return true;
       }
-    }
+    },
     // async redirect({ url, baseUrl }) {
     //   return baseUrl
     // },
-    // async session({ session, user, token }) {
-    //   return session
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token
-    // }
+    async session({ session, user, token }) {
+      if (token) {
+        session.role = token?.role;
+        session.email = token?.email;
+      }
+      return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        if (account.provider == "google") {
+          const dbUser = await dbConnect(collections.USERS).findOne({
+            email: user.email,
+          });
+          token.role = dbUser?.role;
+          token.email = dbUser?.email;
+        } else {
+          token.role = user?.role;
+          token.email = user?.email;
+        }
+
+      }
+      return token
+    }
   }
 };
