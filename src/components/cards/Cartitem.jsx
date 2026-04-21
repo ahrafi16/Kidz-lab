@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FiTag, FiLayers, FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
 import { useState, useTransition } from "react";
 import Swal from "sweetalert2";
-import { deleteItemFromCart } from "@/actions/server/cart";
+import { deleteItemFromCart, handleCart } from "@/actions/server/cart";
 
 const CartItem = ({ item, onQuantityChange, onDelete }) => {
     const [quantity, setQuantity] = useState(item.quantity);
@@ -13,17 +13,20 @@ const CartItem = ({ item, onQuantityChange, onDelete }) => {
     const handleIncrease = () => {
         const newQty = quantity + 1;
         setQuantity(newQty);
+
         startTransition(async () => {
-            await onQuantityChange?.(item._id, newQty);
+            await handleCart({ product: item, inc: true });
         });
     };
 
     const handleDecrease = () => {
         if (quantity <= 1) return;
+
         const newQty = quantity - 1;
         setQuantity(newQty);
+
         startTransition(async () => {
-            await onQuantityChange?.(item._id, newQty);
+            await handleCart({ product: item, inc: false });
         });
     };
 

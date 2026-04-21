@@ -73,7 +73,8 @@ export const authOptions = {
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
         if (account.provider == "google") {
-          const dbUser = await dbConnect(collections.USERS).findOne({
+          const usersCollection = await dbConnect(collections.USERS);
+          const dbUser = await usersCollection.findOne({
             email: user.email,
           });
           token.role = dbUser?.role;

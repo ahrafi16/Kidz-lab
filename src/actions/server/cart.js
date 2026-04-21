@@ -13,7 +13,10 @@ export const handleCart = async ({ product, inc = true }) => {
     if (!user) return { success: false };
 
     // get cart item
-    const query = { email: user?.email, productId: product?._id };
+    const query = {
+        email: user?.email,
+        productId: product?.productId || product?._id,
+    };
     const isAdded = await cartCollection.findOne(query);
     if
         (isAdded) {
@@ -23,6 +26,7 @@ export const handleCart = async ({ product, inc = true }) => {
             },
         };
         const result = await cartCollection.updateOne(query, updatedData);
+        revalidatePath("/cart");
         return { success: Boolean(result.modifiedCount) };
     } else {
         const newData = {
@@ -35,6 +39,7 @@ export const handleCart = async ({ product, inc = true }) => {
             username: user?.name
         };
         const result = await cartCollection.insertOne(newData);
+        revalidatePath("/cart");
         return { success: result.acknowledged };
     }
 }
